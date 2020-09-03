@@ -1,0 +1,65 @@
+<!-- This is where the model concept is used. When a controller is called and the URL is accessed
+ in the controller, you can fetch data and set it in the context of whatever is rendering 
+ on this page -- model attributes are placed on this page.
+-->
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>COVID-19 Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <!-- Added Bootstrap for CSS styling -->
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+ 	
+  </head>
+
+  <body>
+  
+  	<!-- This container is used to wrap the table -->
+    
+  	<div class="container">
+  
+  		<!-- Heading for the table. -->
+  
+  		<h1>COVID-19 Tracker</h1>
+  		<p>This application lists the current number of reported COVID-19 cases globally.</p>
+  
+  			<!-- Jumbotron heading from Bootstrap to display total reported cases. -->
+    
+  			<div class="jumbotron">
+  			<h1 class="display-4"><p th:text="${totalReportedCases}">></h1>
+  				<p class="lead">Total Cases Reported As Of Today</p>
+  			<hr class="my-4">
+  				<p>
+  					<span>New cases reported from previous day - </span>
+  					<span th:text="${totalNewCases}"></span>
+  				</p>
+  			</div>
+  			
+    		<table class="table">
+      			<tr>
+        			<th>Province/State</th>
+        			<th>Country/Region</th>
+        			<th>Total Cases Reported</th>
+        			<th>Changes from Previous Day</th>
+        
+      			</tr>
+     
+      			<!-- th:each {used here to loop through data (iteration)} 
+      			loop variable name : actual variable you're looping over -->
+      
+      			<tr th:each="locationStat : ${locationStats}">
+      			
+        			<td th:text="${locationStat.state}"></td>
+        			<td th:text="${locationStat.country}"></td>
+        			<td th:text="${locationStat.latestTotalCases}">0</td>
+        			<td th:text="${locationStat.diffFromPrevDay}">0</td>
+      			</tr>
+    		</table>
+  		</div>
+  	</body>
+</html>
